@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Fox : MonoBehaviour
 {
-    // Private Fields
+    // Private Fields, private is default no need to call
     Rigidbody2D rb;
     Animator animator;
+
     public Collider2D standingCollider, crouchingCollider;
     public Transform groundCheckCollider;
     public Transform overheadCheckCollider;
@@ -35,7 +36,7 @@ public class Fox : MonoBehaviour
     bool isSliding;
     bool isDead = false;
 
-    // 
+    // Awake is automatically called when an object is instantiated in the scene or when the game starts
     void Awake()
     {
         availableJumps = totalJumps;
@@ -44,6 +45,7 @@ public class Fox : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    // Update is called once per frame
     void Update()
     {
         if (CanMoveOrInteract() == false)
@@ -77,6 +79,7 @@ public class Fox : MonoBehaviour
         WallCheck();
     }
 
+    // FixedUpdate is called at fixed time intervals, independent of the frame rate
     void FixedUpdate()
     {
         GroundCheck();
