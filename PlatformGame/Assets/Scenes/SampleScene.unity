@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 511133211}
   - component: {fileID: 511133210}
   - component: {fileID: 511133209}
-  - component: {fileID: 511133213}
   - component: {fileID: 511133215}
   - component: {fileID: 511133216}
   m_Layer: 0
@@ -260,18 +259,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &511133213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 511133208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 897819b4de08dc142b24012e849d4c24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &511133215
 Animator:
   serializedVersion: 5
@@ -302,13 +289,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 511133208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13c57e670dd3bb74bba5ffe35499c4e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ee73667bc9fdd0409f7a0f2e8b41ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 7
-  jumpForce: 14
-  groundCheckObject: {fileID: 726785745}
-  maxJumps: 4
+  standingCollider: {fileID: 0}
+  crouchingCollider: {fileID: 0}
+  groundCheckCollider: {fileID: 726785746}
+  overheadCheckCollider: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  wallCheckCollider: {fileID: 0}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  speed: 2
+  jumpPower: 500
+  slideFactor: 0.2
+  totalJumps: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
