@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +7,7 @@ public class InventorySystem : MonoBehaviour
 {
     [Header("General Fields")]
     //List of items picked up
-    public List<GameObject> items = new List<GameObject>();
+    public List<GameObject> items= new List<GameObject>();
     //flag indicates if the inventory is open or not
     public bool isOpen;
     [Header("UI Items Section")]
@@ -23,7 +23,7 @@ public class InventorySystem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.I))
         {
             ToggleInventory();
         }
@@ -50,7 +50,7 @@ public class InventorySystem : MonoBehaviour
         HideAll();
         //For each item in the "items" list 
         //Show it in the respective slot in the "items_images"
-        for (int i = 0; i < items.Count; i++)
+        for(int i=0;i<items.Count;i++)
         {
             items_images[i].sprite = items[i].GetComponent<SpriteRenderer>().sprite;
             items_images[i].gameObject.SetActive(true);
@@ -58,13 +58,13 @@ public class InventorySystem : MonoBehaviour
     }
 
     //Hide all the items ui images
-    void HideAll()
-    {
+    void HideAll() 
+    { 
         foreach (var i in items_images) { i.gameObject.SetActive(false); }
 
         HideDescription();
     }
-
+    
     public void ShowDescription(int id)
     {
         //Set the Image
@@ -88,7 +88,7 @@ public class InventorySystem : MonoBehaviour
 
     public void Consume(int id)
     {
-        if (items[id].GetComponent<Item>().type == Item.ItemType.Consumables)
+        if(items[id].GetComponent<Item>().type== Item.ItemType.Consumables)
         {
             Debug.Log($"CONSUMED {items[id].name}");
             //Invoke the cunsume custome event

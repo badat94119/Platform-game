@@ -1,13 +1,13 @@
-#if UNITY_EDITOR
+﻿#if UNITY_EDITOR
 using UnityEditor;
 #endif
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
-{
+{    
     public Transform target;
     public Vector3 offset;
-    [Range(1, 10)]
+    [Range(1,10)]
     public float smoothFactor;
     [HideInInspector]
     public Vector3 minValues, maxValue;
@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour
     //Editors Fields
     [HideInInspector]
     public bool setupComplete = false;
-    public enum SetupState { None, Step1, Step2 }
+    public enum SetupState { None,Step1,Step2}
     [HideInInspector]
     public SetupState ss = SetupState.None;
 
@@ -35,7 +35,7 @@ public class CameraFollow : MonoBehaviour
             Mathf.Clamp(targetPosition.y, minValues.y, maxValue.y),
             Mathf.Clamp(targetPosition.z, minValues.z, maxValue.z));
 
-        Vector3 smoothPosition = Vector3.Lerp(transform.position, boundPosition, smoothFactor * Time.fixedDeltaTime);
+        Vector3 smoothPosition = Vector3.Lerp(transform.position, boundPosition, smoothFactor*Time.fixedDeltaTime);
         transform.position = smoothPosition;
     }
 

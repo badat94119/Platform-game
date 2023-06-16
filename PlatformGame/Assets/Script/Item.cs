@@ -1,13 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Item : MonoBehaviour
-{
-    public enum InteractionType { NONE, PickUp, Examine, GrabDrop }
-    public enum ItemType { Staic, Consumables }
+{    
+    public enum InteractionType { NONE, PickUp, Examine,GrabDrop }
+    public enum ItemType { Staic, Consumables}
     [Header("Attributes")]
     public InteractionType interactType;
     public ItemType type;
@@ -25,7 +25,7 @@ public class Item : MonoBehaviour
 
     public void Interact()
     {
-        switch (interactType)
+        switch(interactType)
         {
             case InteractionType.PickUp:
                 //Add the object to the PickedUpItems list
@@ -35,7 +35,7 @@ public class Item : MonoBehaviour
                 break;
             case InteractionType.Examine:
                 //Call the Examine item in the interaction system
-                FindObjectOfType<InteractionSystem>().ExamineItem(this);
+                FindObjectOfType<InteractionSystem>().ExamineItem(this);                
                 break;
             case InteractionType.GrabDrop:
                 //Grab interaction

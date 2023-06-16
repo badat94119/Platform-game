@@ -1,14 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Fox : MonoBehaviour
 {
-    // Private Fields, private is default no need to call
     Rigidbody2D rb;
     Animator animator;
-
-    public Collider2D standingCollider, crouchingCollider;
+    public Collider2D standingCollider,crouchingCollider;
     public Transform groundCheckCollider;
     public Transform overheadCheckCollider;
     public LayerMask groundLayer;
@@ -19,15 +17,15 @@ public class Fox : MonoBehaviour
     const float overheadCheckRadius = 0.2f;
     const float wallCheckRadius = 0.2f;
     [SerializeField] float speed = 2;
-    [SerializeField] float jumpPower = 500;
+    [SerializeField] float jumpPower =500;
     [SerializeField] float slideFactor = 0.2f;
     public int totalJumps;
     int availableJumps;
     float horizontalValue;
     float runSpeedModifier = 2f;
     float crouchSpeedModifier = 0.5f;
-
-    bool isGrounded = true;
+    
+    bool isGrounded=true;    
     bool isRunning;
     bool facingRight = true;
     bool crouchPressed;
@@ -36,7 +34,6 @@ public class Fox : MonoBehaviour
     bool isSliding;
     bool isDead = false;
 
-    // Awake is automatically called when an object is instantiated in the scene or when the game starts
     void Awake()
     {
         availableJumps = totalJumps;
@@ -45,10 +42,9 @@ public class Fox : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (CanMoveOrInteract() == false)
+        if (CanMoveOrInteract()==false)
             return;
 
         //Store the horizontal value
@@ -79,11 +75,10 @@ public class Fox : MonoBehaviour
         WallCheck();
     }
 
-    // FixedUpdate is called at fixed time intervals, independent of the frame rate
     void FixedUpdate()
     {
         GroundCheck();
-        Move(horizontalValue, crouchPressed);
+        Move(horizontalValue, crouchPressed);        
     }
 
     private void OnDrawGizmosSelected()
@@ -125,16 +120,16 @@ public class Fox : MonoBehaviour
                 multipleJump = false;
 
                 //AudioManager.instance.PlaySFX("landing");
-            }
-
+            }        
+            
             //Check if any of the colliders is moving platform
             //Parent it to this transform
-            foreach (var c in colliders)
+            foreach(var c in colliders)
             {
                 if (c.tag == "MovingPlatform")
                     transform.parent = c.transform;
             }
-        }
+        }    
         else
         {
             //Un-parent the transform
@@ -161,7 +156,7 @@ public class Fox : MonoBehaviour
             && rb.velocity.y < 0
             && !isGrounded)
         {
-            if (!isSliding)
+            if(!isSliding)
             {
                 availableJumps = totalJumps;
                 multipleJump = false;
@@ -172,7 +167,7 @@ public class Fox : MonoBehaviour
             rb.velocity = v;
             isSliding = true;
 
-            if (Input.GetButtonDown("Jump"))
+            if(Input.GetButtonDown("Jump"))
             {
                 availableJumps--;
 
@@ -206,7 +201,7 @@ public class Fox : MonoBehaviour
         }
         else
         {
-            if (coyoteJump)
+            if(coyoteJump)
             {
                 multipleJump = true;
                 availableJumps--;
@@ -215,7 +210,7 @@ public class Fox : MonoBehaviour
                 animator.SetBool("Jump", true);
             }
 
-            if (multipleJump && availableJumps > 0)
+            if(multipleJump && availableJumps>0)
             {
                 availableJumps--;
 
@@ -226,16 +221,16 @@ public class Fox : MonoBehaviour
     }
     #endregion
 
-    void Move(float dir, bool crouchFlag)
+    void Move(float dir,bool crouchFlag)
     {
         #region Crouch
 
         //If we are crouching and disabled crouching
         //Check overhead for collision with Ground items
         //If there are any, remain crouched, otherwise un-crouch
-        if (!crouchFlag)
+        if(!crouchFlag)
         {
-            if (Physics2D.OverlapCircle(overheadCheckCollider.position, overheadCheckRadius, groundLayer))
+            if(Physics2D.OverlapCircle(overheadCheckCollider.position,overheadCheckRadius,groundLayer))
                 crouchFlag = true;
         }
 
@@ -258,15 +253,15 @@ public class Fox : MonoBehaviour
         Vector2 targetVelocity = new Vector2(xVal, rb.velocity.y);
         //Set the player's velocity
         rb.velocity = targetVelocity;
-
+ 
         //If looking right and clicked left (flip to the left)
-        if (facingRight && dir < 0)
+        if(facingRight && dir < 0)
         {
             transform.localScale = new Vector3(-1, 1, 1);
             facingRight = false;
         }
         //If looking left and clicked right (flip to rhe right)
-        else if (!facingRight && dir > 0)
+        else if(!facingRight && dir > 0)
         {
             transform.localScale = new Vector3(1, 1, 1);
             facingRight = true;
@@ -277,8 +272,8 @@ public class Fox : MonoBehaviour
         //of the RigidBody2D velocity 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
         #endregion
-    }
-
+    }   
+    
     public void Die()
     {
         isDead = true;
@@ -289,5 +284,5 @@ public class Fox : MonoBehaviour
     {
         isDead = false;
     }
-
+    
 }
